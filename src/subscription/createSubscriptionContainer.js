@@ -1,7 +1,7 @@
 /* @flow */
 
-import isEqual from 'lodash.isequal';
-import React from 'react';
+import isEqual from 'IsEqual';
+import React from 'React';
 import RelayPropTypes from 'RelayPropTypes';
 import RelayContainer from 'RelayContainer';
 import type { RelayContainerSpec } from 'RelayContainer';
