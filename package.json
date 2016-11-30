@@ -1,7 +1,7 @@
 {
   "name": "react-relay-plus",
   "description": "A framework for building data-driven React applications.",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "keywords": [
     "graphql",
     "react",
@@ -31,6 +31,7 @@
   "dependencies": {
     "babel-runtime": "^6.6.1",
     "fbjs": "^0.8.1",
+    "lodash.isequal": "^4.4.0",
     "react-static-container": "^1.0.1"
   },
   "peerDependencies": {
@@ -75,7 +76,9 @@
   "jest": {
     "rootDir": "",
     "scriptPreprocessor": "scripts/jest/preprocessor.js",
-    "setupFiles": ["node_modules/fbjs-scripts/jest/environment.js"],
+    "setupFiles": [
+      "node_modules/fbjs-scripts/jest/environment.js"
+    ],
     "automock": true,
     "modulePathIgnorePatterns": [
       "<rootDir>/lib/",

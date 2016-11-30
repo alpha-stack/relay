@@ -13,7 +13,7 @@
 'use strict';
 
 const RelayContainer = require('RelayContainer');
-const RelayEnvironment = require('RelayEnvironment');
+const RelayEnvironment = require('SubscriptionEnvironment');
 const RelayGraphQLMutation = require('RelayGraphQLMutation');
 const RelayInternals = require('RelayInternals');
 const RelayMutation = require('RelayMutation');
@@ -26,8 +26,10 @@ const RelayRenderer = require('RelayRenderer');
 const RelayRootContainer = require('RelayRootContainer');
 const RelayRoute = require('RelayRoute');
 const RelayStore = require('RelayStore');
+const RelaySubscription = require('RelaySubscription');
 
 const createRelayQuery = require('createRelayQuery');
+const createSubscriptionContainer = require('createSubscriptionContainer');
 const getRelayQueries = require('getRelayQueries');
 const isRelayContainer = require('isRelayContainer');
 
@@ -43,6 +45,7 @@ const RelayPublic = {
   Environment: RelayEnvironment,
   GraphQLMutation: RelayGraphQLMutation,
   Mutation: RelayMutation,
+  Subscription: RelaySubscription,
   PropTypes: RelayPropTypes,
   QL: RelayQL,
   QueryConfig: RelayQueryConfig,
@@ -52,7 +55,7 @@ const RelayPublic = {
   Route: RelayRoute,
   Store: RelayStore,
 
-  createContainer: RelayContainer.create,
+  createContainer: createSubscriptionContainer,
   createQuery: createRelayQuery,
   getQueries: getRelayQueries,
   disableQueryCaching: RelayQueryCaching.disable,
