@@ -19,7 +19,7 @@ const printRelayQuery = require('printRelayQuery');
 import type {PrintedQuery} from 'RelayInternalTypes';
 import type {FileMap} from 'RelayMutation';
 import type RelayQuery from 'RelayQuery';
-import type {MutationResult, Variables} from 'RelayTypes';
+import type {MutationResult, Variables, CancellationToken} from 'RelayTypes';
 
 /**
  * @internal
@@ -30,6 +30,7 @@ class RelayMutationRequest extends Deferred<MutationResult, Error> {
   _mutation: RelayQuery.Mutation;
   _printedQuery: ?PrintedQuery;
   _files: ?FileMap;
+  _token: ?CancellationToken;
 
   constructor(
     mutation: RelayQuery.Mutation,
@@ -84,6 +85,22 @@ class RelayMutationRequest extends Deferred<MutationResult, Error> {
    */
   getMutation(): RelayQuery.Mutation {
     return this._mutation;
+  }
+
+  /**
+   * @public
+   * @unstable
+   */
+  setCancellationToken(token: CancellationToken): void {
+    this._token = token;
+  }
+
+  /**
+   * @public
+   * @unstable
+   */
+  getCancellationToken(): CancellationToken {
+    return this._token;
   }
 
   /**

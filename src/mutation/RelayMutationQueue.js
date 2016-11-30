@@ -338,6 +338,17 @@ class RelayMutationQueue {
 
     this._storeData.getNetworkLayer().sendMutation(request, onProgress);
 
+    const token = request.getCancellationToken();
+    if (token) {
+      const cancel = transaction.mutationTransaction.cancel;
+      transaction.mutationTransaction.cancel = function() {
+        if (cancel) {
+          cancel();
+        }
+        token.cancel();
+      }
+    }
+
     request.done(
       result => this._handleCommitSuccess(transaction, result.response),
       error => this._handleCommitFailure(transaction, error)

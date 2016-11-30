@@ -254,3 +254,6 @@ export type SubscriptionCallbacks<T> = {
 };
 // Variables
 export type Variables = {[name: string]: mixed};
+export type CancellationToken = {
+  cancel(): void
+};

@@ -51,6 +51,11 @@ const RelayMutationTransactionStatus = {
   COMMIT_FAILED: 'COMMIT_FAILED',
 
   /**
+   * Transaction was cancelled by the user
+   */
+  COMMIT_CANCELLED: 'COMMIT_CANCELLED',
+
+  /**
    * Transaction has been rolled back by the developer.
    */
   ROLLED_BACK: 'ROLLED_BACK',

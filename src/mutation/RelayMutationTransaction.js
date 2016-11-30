@@ -105,6 +105,9 @@ class RelayMutationTransaction {
     this._mutationQueue.rollback(this._id);
   }
 
+  cancel(): void {
+  }
+
   getError(): ?Error {
     return this._mutationQueue.getError(this._id);
   }
