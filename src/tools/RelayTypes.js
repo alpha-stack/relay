@@ -116,7 +116,10 @@ export type MutationResult = {
 };
 // Network requests
 export type NetworkLayer = {
-  sendMutation(request: RelayMutationRequest): ?Promise<any>,
+  sendMutation(
+    request: RelayMutationRequest,
+    onProgress: RelayMutationTransactionCommitProgressCallback,
+  ): ?Promise<any>,
   sendQueries(requests: Array<RelayQueryRequest>): ?Promise<any>,
   supports(...options: Array<string>): boolean,
 };
@@ -174,6 +177,7 @@ export type RelayMutationConfig = {
 export type RelayMutationTransactionCommitCallbacks = {
   onFailure?: ?RelayMutationTransactionCommitFailureCallback,
   onSuccess?: ?RelayMutationTransactionCommitSuccessCallback,
+  onProgress?: ?RelayMutationTransactionCommitProgressCallback,
 };
 // Mutations
 export type RelayMutationTransactionCommitFailureCallback = (
@@ -182,6 +186,9 @@ export type RelayMutationTransactionCommitFailureCallback = (
 ) => void;
 export type RelayMutationTransactionCommitSuccessCallback = (
   response: {[key: string]: Object}
+) => void;
+export type RelayMutationTransactionCommitProgressCallback = (
+  progressEvent: ProgressEvent
 ) => void;
 export type RelayProp = {
   applyUpdate: (

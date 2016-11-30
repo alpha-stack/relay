@@ -40,6 +40,7 @@ import type {
   RelayMutationTransactionCommitCallbacks,
   RelayMutationTransactionCommitFailureCallback,
   RelayMutationTransactionCommitSuccessCallback,
+  RelayMutationTransactionCommitProgressCallback,
   Variables,
 } from 'RelayTypes';
 
@@ -58,6 +59,7 @@ interface PendingTransaction {
   mutationTransaction: RelayMutationTransaction,
   onFailure: ?RelayMutationTransactionCommitFailureCallback,
   onSuccess: ?RelayMutationTransactionCommitSuccessCallback,
+  onProgress: ?RelayMutationTransactionCommitProgressCallback,
   status: $Keys<typeof RelayMutationTransactionStatus>,
 }
 type PendingTransactionMap = {
@@ -73,6 +75,7 @@ type TransactionData = {
   mutationTransaction: RelayMutationTransaction,
   onFailure: ?RelayMutationTransactionCommitFailureCallback,
   onSuccess: ?RelayMutationTransactionCommitSuccessCallback,
+  onProgress: ?RelayMutationTransactionCommitProgressCallback,
 };
 type TransactionQueue = Array<PendingTransaction>;
 
@@ -118,6 +121,7 @@ class RelayMutationQueue {
         mutationTransaction,
         onFailure: callbacks && callbacks.onFailure,
         onSuccess: callbacks && callbacks.onSuccess,
+        onProgress: callbacks && callbacks.onProgress,
       })
     );
   }
@@ -313,7 +317,26 @@ class RelayMutationQueue {
       transaction.getQuery(this._storeData),
       transaction.getFiles(),
     );
-    this._storeData.getNetworkLayer().sendMutation(request);
+
+    const onProgress = function(...args) {
+      invariant(
+        transaction.status === RelayMutationTransactionStatus.COMMITTING,
+        'RelayMutationQueue: Cannot call onProgress on transaction unless ' +
+        'status is `COMMITTING`'
+      );
+      const _onProgress = transaction.onProgress;
+      if (_onProgress) {
+        ErrorUtils.applyWithGuard(
+          _onProgress,
+          null,
+          [...args],
+          null,
+          'RelayMutationTransaction:onCommitProgress'
+        );
+      }
+    };
+
+    this._storeData.getNetworkLayer().sendMutation(request, onProgress);
 
     request.done(
       result => this._handleCommitSuccess(transaction, result.response),
@@ -392,6 +415,7 @@ class RelayPendingTransaction {
   mutationTransaction: RelayMutationTransaction;
   onFailure: ?RelayMutationTransactionCommitFailureCallback;
   onSuccess: ?RelayMutationTransactionCommitSuccessCallback;
+  onProgress: ?RelayMutationTrasactionCommitProgressCallback;
   status: $Keys<typeof RelayMutationTransactionStatus>;
 
   // Lazily computed and memoized private properties
@@ -422,6 +446,7 @@ class RelayPendingTransaction {
     this.mutationTransaction = transactionData.mutationTransaction;
     this.onFailure = transactionData.onFailure;
     this.onSuccess = transactionData.onSuccess;
+    this.onProgress = transactionData.onProgress;
     this.status = RelayMutationTransactionStatus.CREATED;
   }
 

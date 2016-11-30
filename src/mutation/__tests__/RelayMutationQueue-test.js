@@ -217,6 +217,59 @@ describe('RelayMutationQueue', () => {
       expect(failureCallback1).toBeCalled();
     });
 
+    it('calls `onProgress` with ProgressEvent', () => {
+      const mockProgressEvent = new ProgressEvent(null, {});
+      const progressCallback1 = jest.fn(
+        progressEvent => {
+          expect(progressEvent).toBe(mockProgressEvent);
+        },
+      );
+      const transaction1 = mutationQueue.createTransaction(
+        mockMutation1,
+        {onProgress: progressCallback1}
+      );
+      transaction1.commit();
+      expect(networkLayer.sendMutation.mock.calls.length).toBe(1);
+      const progressCallback2 = networkLayer.sendMutation.mock.calls[0][1];
+      progressCallback2(mockProgressEvent);
+      expect(progressCallback1).toBeCalled();
+    });
+
+    it('throws if `onProgress` is called while not committing', () => {
+      const mockProgressEvent = new ProgressEvent(null, {});
+      const progressCallback0 = jest.fn(
+        progressEvent => {
+          expect(progressEvent).toBe(mockProgressEvent);
+        },
+      );
+      const transaction1 = mutationQueue.createTransaction(
+        mockMutation1,
+        {onProgress: progressCallback0}
+      );
+      const transaction2 = mutationQueue.createTransaction(
+        mockMutation2,
+        {onProgress: progressCallback0}
+      );
+      transaction1.commit();
+      transaction2.commit();
+      expect(networkLayer.sendMutation.mock.calls.length).toBe(2);
+      const request1 = networkLayer.sendMutation.mock.calls[0][0];
+      const request2 = networkLayer.sendMutation.mock.calls[1][0];
+      const progressCallback1 = networkLayer.sendMutation.mock.calls[0][1];
+      const progressCallback2 = networkLayer.sendMutation.mock.calls[1][1];
+      request1.resolve({response: {test: 'data'}});
+      request2.reject(new Error('test'));
+      jest.runAllTimers();
+      expect(() => progressCallback1(mockProgressEvent)).toFailInvariant(
+        'RelayMutationQueue: Cannot call onProgress on transaction unless ' +
+        'status is `COMMITTING`'
+      );
+      expect(() => progressCallback2(mockProgressEvent)).toFailInvariant(
+        'RelayMutationQueue: Cannot call onProgress on transaction unless ' +
+        'status is `COMMITTING`'
+      );
+    });
+
     it('queues commits for colliding transactions', () => {
       const successCallback1 = jest.fn();
       const transaction1 = mutationQueue.createTransaction(
