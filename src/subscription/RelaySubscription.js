@@ -11,7 +11,7 @@ import type {
   Variables,
 } from './types';
 
-export default class Subscription<Tp: Object> {
+class Subscription<Tp: Object> {
   static name: string;
   static initialVariables: Variables;
   static prepareVariables: ?(
@@ -71,3 +71,5 @@ export default class Subscription<Tp: Object> {
     RelayMutation.prototype._resolveProps.call(this);
   }
 }
+
+module.exports = Subscription;

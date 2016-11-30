@@ -146,7 +146,7 @@ function subscribe(
   };
 }
 
-export default function createContainer(
+module.exports = function createContainer(
   Component: ReactClass<any>,
   spec: RelayContainerSpec & { subscriptions?: subscriptionFn[] },
 ) {

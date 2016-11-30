@@ -10,7 +10,7 @@ import type {
   Variables,
 } from './types';
 
-export default class SubscriptionRequest {
+class SubscriptionRequest {
   _printedQuery: ?PrintedQuery;
   _subscription: RelayQuery.Subscription;
   _observer: SubscriptionRequestObserver;
@@ -60,3 +60,5 @@ export default class SubscriptionRequest {
     this._observer.onCompleted(value);
   }
 }
+
+module.exports = SubscriptionRequest;

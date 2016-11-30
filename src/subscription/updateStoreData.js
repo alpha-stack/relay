@@ -8,7 +8,7 @@ import type {
   SubscriptionResult,
 } from './types';
 
-export default function updateStoreData(
+module.exports = function updateStoreData(
   environment: RelayEnvironment,
   configs: Array<MutationConfig>,
   query: RelayQuery.Operation,

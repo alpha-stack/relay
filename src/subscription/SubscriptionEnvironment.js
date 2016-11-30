@@ -39,7 +39,7 @@ class StoreData extends RelayStoreData {
   }
 }
 
-export default class Environment extends RelayEnvironment {
+class Environment extends RelayEnvironment {
   subscribe: (
     subscription: Subscription<any>,
     observer?: SubscriptionObserver,
@@ -107,3 +107,5 @@ export default class Environment extends RelayEnvironment {
     );
   }
 }
+
+module.exports = Environment;

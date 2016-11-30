@@ -5,7 +5,7 @@ import RelayQuery from 'RelayQuery';
 
 import type { RelayConcreteNode, Variables } from './types';
 
-export default function createSubscriptionQuery(
+module.exports = function createSubscriptionQuery(
   concreteNode: RelayConcreteNode,
   variables: Variables
 ): RelayQuery.Subscription {
