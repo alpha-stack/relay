@@ -151,7 +151,7 @@ module.exports = function createContainer(
   spec: RelayContainerSpec & { subscriptions?: subscriptionFn[] },
 ) {
   return RelayContainer.create(
-    spec.subscriptions && Array.isArray(spec.subscriptions) && spec.subscriptions.length > 0 ?
+    spec.subscriptions && Array.isArray(spec.subscriptions) ?
       subscribe(Component, spec.subscriptions)
     :
       Component,
