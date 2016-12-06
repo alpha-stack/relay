@@ -86,14 +86,14 @@ class RelayNetworkLayer {
     };
   }
 
-  sendMutation(mutationRequest: RelayMutationRequest): void {
+  sendMutation(mutationRequest: RelayMutationRequest, onProgress): void {
     const implementation = this._getImplementation();
     this._subscribers.forEach(({mutationCallback}) => {
       if (mutationCallback) {
         mutationCallback(mutationRequest);
       }
     });
-    const promise = implementation.sendMutation(mutationRequest);
+    const promise = implementation.sendMutation(mutationRequest, onProgress);
     if (promise) {
       Promise.resolve(promise).done();
     }
