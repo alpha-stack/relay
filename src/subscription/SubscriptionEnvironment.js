@@ -69,18 +69,18 @@ class Environment extends RelayEnvironment {
       },
     });
 
-    const onPayload = (payload) => {
-      updateStoreData(this, subscription.getConfigs(), query, payload);
+    const onPayload = (payload, info) => {
+      updateStoreData(this, info.configs || subscription.getConfigs(), info.query || query, payload);
     };
 
     let requestObserver;
     if (observer) {
       const definedObserver = observer; // Placate Flow.
       requestObserver = {
-        onNext: (payload) => {
-          onPayload(payload);
+        onNext: (payload, query) => {
+          onPayload(payload, query);
           if (definedObserver.onNext) {
-            definedObserver.onNext(payload);
+            definedObserver.onNext(payload, query);
           }
         },
         onError: (error) => {

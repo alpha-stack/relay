@@ -16,7 +16,7 @@ export type PrintedQuery = {
 export type SubscriptionResult = {[name: string]: mixed};
 
 export type SubscriptionObserver = {
-  onNext?: (value: SubscriptionResult) => void;
+  onNext?: (value: SubscriptionResult, query: any) => void;
   onError?: (error: any) => void;
   onCompleted?: (value: any) => void;
 }

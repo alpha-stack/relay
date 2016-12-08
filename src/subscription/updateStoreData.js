@@ -26,4 +26,4 @@ module.exports = function updateStoreData(
     { ...payload[payloadName], clientMutationId },
     { configs }
   );
-}
+};
