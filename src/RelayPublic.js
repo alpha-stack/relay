@@ -29,6 +29,7 @@ const RelayStore = require('RelayStore');
 const RelaySubscription = require('RelaySubscription');
 
 const createRelayQuery = require('createRelayQuery');
+const createRelaySubscription = require('createSubscriptionQuery');
 const createSubscriptionContainer = require('createSubscriptionContainer');
 const getRelayQueries = require('getRelayQueries');
 const isRelayContainer = require('isRelayContainer');
@@ -57,6 +58,7 @@ const RelayPublic = {
 
   createContainer: createSubscriptionContainer,
   createQuery: createRelayQuery,
+  createSubscription: createRelaySubscription,
   getQueries: getRelayQueries,
   disableQueryCaching: RelayQueryCaching.disable,
   injectNetworkLayer: RelayStore.injectNetworkLayer.bind(RelayStore),
