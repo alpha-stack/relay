@@ -48,8 +48,8 @@ class SubscriptionRequest {
     return this._subscription.getVariables().input.clientSubscriptionId;
   }
 
-  onNext(payload: SubscriptionResult) {
-    this._observer.onNext(payload);
+  onNext(payload: SubscriptionResult, relay: any) {
+    this._observer.onNext(payload, relay);
   }
 
   onError(error: any) {
