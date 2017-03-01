@@ -36,7 +36,7 @@ const relayUnstableBatchedUpdates = require('relayUnstableBatchedUpdates');
 const shallowEqual = require('shallowEqual');
 const warning = require('warning');
 
-const {getComponentName, getReactComponent} = require('RelayContainerUtils');
+const {getComponentName, getReactComponent, hoistNonReactStatics} = require('RelayContainerUtils');
 
 import type {ConcreteFragment} from 'ConcreteQuery';
 import type RelayEnvironment from 'RelayEnvironment';
@@ -852,7 +852,7 @@ function createContainerComponent(
   RelayContainer.displayName = containerName;
   RelayContainerProxy.proxyMethods(RelayContainer, Component);
 
-  return RelayContainer;
+  return hoistNonReactStatics(RelayContainer, Component);
 }
 
 /**
