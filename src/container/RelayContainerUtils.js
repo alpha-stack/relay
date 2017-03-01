@@ -71,16 +71,9 @@ const KNOWN_STATICS = {
   arity: true
 };
 
-const isGetOwnPropertySymbolsAvailable = typeof Object.getOwnPropertySymbols === 'function';
-
 function hoistNonReactStatics(targetComponent: ReactClass<any>, sourceComponent: ReactClass<any>, customStatics: Object) {
   if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
-    let keys = Object.getOwnPropertyNames(sourceComponent);
-
-    /* istanbul ignore else */
-    if (isGetOwnPropertySymbolsAvailable) {
-      keys = keys.concat(Object.getOwnPropertySymbols(sourceComponent));
-    }
+    const keys = Object.keys(sourceComponent);
 
     for (let i = 0; i < keys.length; ++i) {
       if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {
