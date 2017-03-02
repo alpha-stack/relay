@@ -46,7 +46,7 @@ const RelayOSSContainerProxy = {
       const keys = Object.keys(Component);
 
       for (let i = 0; i < keys.length; ++i) {
-        if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {
+        if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]]) {
           try {
             Container[keys[i]] = Component[keys[i]];
           } catch (error) {
