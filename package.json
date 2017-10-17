@@ -1,7 +1,7 @@
 {
   "name": "react-relay-plus",
   "description": "A framework for building data-driven React applications.",
-  "version": "0.9.15",
+  "version": "0.9.16",
   "keywords": [
     "graphql",
     "react",
@@ -32,11 +32,14 @@
     "babel-runtime": "^6.6.1",
     "fbjs": "^0.8.1",
     "lodash.isequal": "^4.4.0",
+    "prop-types": "^15.6.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "react-static-container": "^1.0.1"
   },
   "peerDependencies": {
     "babel-relay-plugin": "0.9.3",
-    "react": "^15.0.0 || ^0.14.0"
+    "react": "^16.0.0 || ^15.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
@@ -62,9 +65,9 @@
     "gulp-util": "^3.0.7",
     "jest": "^15.1.1",
     "object-assign": "^4.1.0",
-    "react": "^15.1.0",
+    "react": "^16.0.0",
     "react-addons-test-utils": "^15.0.0",
-    "react-dom": "^15.1.0",
+    "react-dom": "^16.0.0",
     "run-sequence": "^1.2.1",
     "webpack": "^1.13.1",
     "webpack-stream": "^3.2.0"
