@@ -1,6 +1,9 @@
+import isEqual from 'IsEqual';
+
 /* @flow */
 
-import isEqual from 'IsEqual';
+import PropTypes from 'PropTypes';
+
 import React from 'React';
 import RelayPropTypes from 'RelayPropTypes';
 import RelayContainer from 'RelayContainer';
@@ -34,7 +37,7 @@ function subscribe(
     static displayName = `Subscribe(${componentName})`;
 
     static propTypes = {
-      relay: React.PropTypes.object.isRequired,
+      relay: PropTypes.object.isRequired,
     };
 
     static contextTypes = {

@@ -27,6 +27,7 @@ const babelOptions = require('./scripts/getBabelOptions')({
     'ReactDOM': 'react-dom',
     'ReactNative': 'react-native',
     'IsEqual': 'lodash.isequal',
+    'PropTypes': 'prop-types',
     'StaticContainer.react': 'react-static-container',
   },
   plugins: [
