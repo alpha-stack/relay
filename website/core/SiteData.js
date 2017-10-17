@@ -12,5 +12,5 @@
 'use strict';
 
 module.exports = {
-  version: '0.9.17',
+  version: '0.9.18',
 };
