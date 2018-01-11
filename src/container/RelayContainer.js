@@ -1051,6 +1051,17 @@ function create(
     return new Container(props, context);
   }
 
+  ContainerConstructor.isReactComponent = true;
+  ContainerConstructor.prototype.isReactComponent = true;
+  Object.defineProperty(ContainerConstructor.prototype, 'render', {
+    get: function() {
+      if (!Container) {
+        Container = createContainerComponent(Component, spec);
+      }
+      return Container.prototype.render;
+    }
+  });
+
   ContainerConstructor.getFragmentNames = () => fragmentNames;
   ContainerConstructor.hasFragment = fragmentName => !!fragments[fragmentName];
   ContainerConstructor.hasVariable = variableName =>
