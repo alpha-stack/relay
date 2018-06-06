@@ -152,7 +152,6 @@ function createContainerComponent(
 
       this.mounted = true;
       this.pending = null;
-      this.refs = {};
       this.state = {
         queryData: {},
         rawVariables: {},
@@ -806,7 +805,7 @@ function createContainerComponent(
           <ComponentClass
             {...this.props}
             {...this.state.queryData}
-            ref={component => this.refs.component = component}
+            ref={component => this.componentRef = component}
             relay={this.state.relayProp}
           />
         );
